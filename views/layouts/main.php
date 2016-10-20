@@ -44,17 +44,33 @@ AppAsset::register($this);
      $setting =[  
         
         ['label' => 'สถานะคอมพิวเตอร์', 'url' => ['/comstatus']],
+        ['label' => 'ประเภทคอมพิวเตอร์', 'url' => ['/comtype']],
    
     ];
+     
+      $regis =[  
+        
+        ['label' => 'ทะเบียนคอมพิวเตอร์', 'url' => ['/com']],
+        
+    ];
+      
+       $report =[  
+        
+        ['label' => 'รายงานคอมพิวเตอร์', 'url' => ['/reportcomtype']],
+        ['label' => 'รายงานปัญหาคอมพิวเตอร์', 'url' => ['/reportcomservice']],
+           ['label' => 'กราฟสรุปจำนวนคอมพิวเตอร์', 'url' => ['/chartcom']],
+       
+    ];
+       
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-         'encodeLabels' => false,
+        'encodeLabels' => false,
         'items' => [
             ['label' => '<span class="glyphicon glyphicon-home"></span> หน้าแรก', 'url' => ['/site/index']],
-            ['label' => '<span class="glyphicon glyphicon-user"></span> เกี่ยวกับเรา', 'url' => ['/site/about']],
-            ['label' => '<span class="glyphicon glyphicon-envelope"></span> ติดต่อเรา', 'url' => ['/site/contact']],
-            ['label' => '<span class="glyphicon glyphicon-file"></span> ทดสอบ1', 'url' => ['/first1/index']],
-            ['label' => 'ตั้งค่าระบบ', 'items' => $setting],
+            ['label' => '<span class="glyphicon glyphicon-pencil"></span> ลงทะเบียน', 'items' => $regis],
+            ['label' => '<span class="glyphicon glyphicon-stats"></span> ระบบรายงาน', 'items' => $report],
+            ['label' => '<span class="glyphicon glyphicon-list-alt"></span> ทดสอบ', 'url' => ['/first1/index']],
+            ['label' => '<span class="glyphicon glyphicon-cog"></span> ตั้งค่าระบบ', 'items' => $setting],
             
             Yii::$app->user->isGuest ? (
                 ['label' => '<span class="glyphicon glyphicon-file"></span> Login', 'url' => ['/site/login']]

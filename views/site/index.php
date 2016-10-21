@@ -4,6 +4,14 @@
 
 $this->title = 'My Yii Application';
 ?>
+
+
+<?php
+
+   echo  Yii::$app->session->get('userfullname');
+
+?>
+
 <div class="site-index">
 
     <div class="jumbotron">

@@ -58,7 +58,8 @@ AppAsset::register($this);
         
         ['label' => 'รายงานคอมพิวเตอร์', 'url' => ['/reportcomtype']],
         ['label' => 'รายงานปัญหาคอมพิวเตอร์', 'url' => ['/reportcomservice']],
-           ['label' => 'กราฟสรุปจำนวนคอมพิวเตอร์', 'url' => ['/chartcom']],
+        ['label' => 'กราฟสรุปจำนวนคอมพิวเตอร์', 'url' => ['/chartcom']],
+             ['label' => 'รายงานประเภทคอมพิวเตอร์ (PDF)', 'url' => ['/pdftest']],
        
     ];
        
@@ -67,18 +68,18 @@ AppAsset::register($this);
         'encodeLabels' => false,
         'items' => [
             ['label' => '<span class="glyphicon glyphicon-home"></span> หน้าแรก', 'url' => ['/site/index']],
-            ['label' => '<span class="glyphicon glyphicon-pencil"></span> ลงทะเบียน', 'items' => $regis],
+            ['label' => '<span class="glyphicon glyphicon-pencil"></span> ลงทะเบียน', 'items' => $regis,'visible'=>Yii::$app->session->has('username')],
             ['label' => '<span class="glyphicon glyphicon-stats"></span> ระบบรายงาน', 'items' => $report],
             ['label' => '<span class="glyphicon glyphicon-list-alt"></span> ทดสอบ', 'url' => ['/first1/index']],
-            ['label' => '<span class="glyphicon glyphicon-cog"></span> ตั้งค่าระบบ', 'items' => $setting],
+            ['label' => '<span class="glyphicon glyphicon-cog"></span> ตั้งค่าระบบ', 'items' => $setting,'visible'=>Yii::$app->session->has('username')],
             
-            Yii::$app->user->isGuest ? (
+            !Yii::$app->session->get('username') ? (
                 ['label' => '<span class="glyphicon glyphicon-file"></span> Login', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Logout (' . Yii::$app->session->get('username') . ')',
                     ['class' => 'btn btn-link']
                 )
                 . Html::endForm()

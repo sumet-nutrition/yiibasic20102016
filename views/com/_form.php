@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use kartik\widgets\DatePicker;
+use kartik\widgets\Select2;
 /* @var $this yii\web\View */
 /* @var $model app\models\Com */
 /* @var $form yii\widgets\ActiveForm */
@@ -12,7 +13,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'com_type_id')->textInput() ?>
+    <?= $form->field($model, 'com_type_id')->dropDownList(\app\models\ComType::GetList(),['prompt'=>'<---กรุณาเลือก--->']) ?>
 
     <?= $form->field($model, 'brand')->textInput(['maxlength' => true]) ?>
 
@@ -44,7 +45,20 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'com_date')->textInput() ?>
 
-    <?= $form->field($model, 'insurance_date')->textInput() ?>
+    
+     <?php
+            echo $form->field($model, 'insurance_date')->widget(DatePicker::classname(), [
+                'language' => 'th',
+                'options' => ['placeholder' => 'เลือกวันที่...', 'readonly' => true],
+                'type' => DatePicker::TYPE_COMPONENT_APPEND,
+                'pluginOptions' => [
+                    'format' => 'yyyy-mm-dd',
+                    'todayHighlight' => true,
+                    'todayBtn' => true,
+                    'autoclose' => true,
+                ]
+            ]);
+            ?>
 
     <?= $form->field($model, 'create_date')->textInput() ?>
 
@@ -54,11 +68,31 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'note')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'discharge_date')->textInput() ?>
+    <?php
+            echo $form->field($model, 'discharge_date')->widget(DatePicker::classname(), [
+                'language' => 'th',
+                'options' => ['placeholder' => 'เลือกวันที่...', 'readonly' => true],
+                'type' => DatePicker::TYPE_COMPONENT_APPEND,
+                'pluginOptions' => [
+                    'format' => 'yyyy-mm-dd',
+                    'todayHighlight' => true,
+                    'todayBtn' => true,
+                    'autoclose' => true,
+                ]
+            ]);
+            ?>
 
-    <?= $form->field($model, 'buy_type_id')->textInput() ?>
+    <?= $form->field($model, 'buy_type_id')->dropDownList(\app\models\BuyType::GetList(),['buytype'=>'<---กรุณาเลือก--->'])?>
 
-    <?= $form->field($model, 'budget_id')->textInput() ?>
+    <?php
+    echo $form->field($model, 'budget_id')->widget(Select2::classname(), [
+        'data' => app\models\Budget::GetList(),
+        'options' => ['placeholder' => 'กรุณาเลือก...'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
